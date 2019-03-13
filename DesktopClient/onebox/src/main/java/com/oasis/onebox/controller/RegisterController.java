@@ -35,14 +35,15 @@ public class RegisterController {
         }
         username = RSA.getInstance().decryptByPriKey(username);
         password = RSA.getInstance().decryptByPriKey(password);
-        System.out.println(username);
-        System.out.println(password);
-        User.registerUser(username, password);
-//        if (u is True) {
-//            String token = u.createToken(request);
-//            return new ResultShowing("register success", token);
-//        }
-        throw new CustomException(401, "register failed", null);
+        boolean u = User.registerUser(username, password);
+        if (u) {
+            //There is no need to use token for persistence
+			//String token = user.createToken(request);
+            return new ResultShowing("register success", "1");
+        }else{
+            throw  new CustomException(401, "the username may have been used", null);
+        }
+
     }
 
 }

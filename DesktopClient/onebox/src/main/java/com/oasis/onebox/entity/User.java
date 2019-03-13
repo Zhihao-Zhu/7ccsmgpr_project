@@ -9,7 +9,6 @@ import com.oasis.onebox.tool.StringTool;
 import com.oasis.onebox.tool.UserAgent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.oasis.onebox.controller.RegisterController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -32,6 +31,7 @@ public class User {
     private String uuid;// random id
     private String token;
     private long expirationtime;// expirationtime of user
+    private String realPathHead = InitialListener.realPathHead;
 
     public User()
     {
@@ -88,7 +88,7 @@ public class User {
                 try
                 {
                     createUserDir(directory);flat1 = true;
-                    DownloadTask.putUserDownloadDir(username, directory); flat2 = true;
+                    DownloadTask.createUserDownloadDir(username, directory); flat2 = true;
                     userlist.put(username, new User(username, password, directory));
                     return true;
                 }
